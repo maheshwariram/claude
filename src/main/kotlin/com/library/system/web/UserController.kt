@@ -11,22 +11,30 @@ import java.util.UUID
 
 @RestController
 @RequestMapping("/api/users")
-class UserController(private val userService: UserService) {
-
+class UserController(
+    private val userService: UserService,
+) {
     @PostMapping
-    fun registerUser(@RequestBody user: User): ResponseEntity<User> {
+    fun registerUser(
+        @RequestBody user: User,
+    ): ResponseEntity<User> {
         val newUser = userService.registerUser(user)
         return ResponseEntity(newUser, HttpStatus.CREATED)
     }
 
     @GetMapping("/{id}")
-    fun getUserById(@PathVariable id: UUID): ResponseEntity<User> {
+    fun getUserById(
+        @PathVariable id: UUID,
+    ): ResponseEntity<User> {
         val user = userService.getUserById(id)
         return ResponseEntity(user, HttpStatus.OK)
     }
 
     @PutMapping("/{id}")
-    fun updateUser(@PathVariable id: UUID, @RequestBody user: User): ResponseEntity<User> {
+    fun updateUser(
+        @PathVariable id: UUID,
+        @RequestBody user: User,
+    ): ResponseEntity<User> {
         val updatedUser = userService.updateUser(id, user)
         return ResponseEntity(updatedUser, HttpStatus.OK)
     }

@@ -10,16 +10,21 @@ import java.util.UUID
 
 @RestController
 @RequestMapping("/api/books")
-class BookController(private val bookService: BookService) {
-
+class BookController(
+    private val bookService: BookService,
+) {
     @PostMapping
-    fun addBook(@RequestBody book: Book): ResponseEntity<Book> {
+    fun addBook(
+        @RequestBody book: Book,
+    ): ResponseEntity<Book> {
         val newBook = bookService.addBook(book)
         return ResponseEntity(newBook, HttpStatus.CREATED)
     }
 
     @GetMapping("/{id}")
-    fun getBookById(@PathVariable id: UUID): ResponseEntity<Book> {
+    fun getBookById(
+        @PathVariable id: UUID,
+    ): ResponseEntity<Book> {
         val book = bookService.getBookById(id)
         return ResponseEntity(book, HttpStatus.OK)
     }
@@ -31,13 +36,18 @@ class BookController(private val bookService: BookService) {
     }
 
     @PutMapping("/{id}")
-    fun updateBook(@PathVariable id: UUID, @RequestBody book: Book): ResponseEntity<Book> {
+    fun updateBook(
+        @PathVariable id: UUID,
+        @RequestBody book: Book,
+    ): ResponseEntity<Book> {
         val updatedBook = bookService.updateBook(id, book)
         return ResponseEntity(updatedBook, HttpStatus.OK)
     }
 
     @DeleteMapping("/{id}")
-    fun deleteBook(@PathVariable id: UUID): ResponseEntity<Void> {
+    fun deleteBook(
+        @PathVariable id: UUID,
+    ): ResponseEntity<Void> {
         bookService.deleteBookById(id)
         return ResponseEntity(HttpStatus.NO_CONTENT)
     }
@@ -46,7 +56,7 @@ class BookController(private val bookService: BookService) {
     fun searchBooks(
         @RequestParam(required = false) title: String?,
         @RequestParam(required = false) author: String?,
-        @RequestParam(required = false) available: Boolean?
+        @RequestParam(required = false) available: Boolean?,
     ): ResponseEntity<List<Book>> {
         val books = bookService.searchBooks(title, author, available)
         return ResponseEntity(books, HttpStatus.OK)
@@ -55,14 +65,16 @@ class BookController(private val bookService: BookService) {
     @PostMapping("/{bookId}/borrow")
     fun borrowBook(
         @PathVariable bookId: UUID,
-        @RequestParam userId: UUID
+        @RequestParam userId: UUID,
     ): ResponseEntity<Book> {
         val borrowedBook = bookService.borrowBook(bookId, userId)
         return ResponseEntity(borrowedBook, HttpStatus.OK)
     }
 
     @PostMapping("/{bookId}/return")
-    fun returnBook(@PathVariable bookId: UUID): ResponseEntity<Book> {
+    fun returnBook(
+        @PathVariable bookId: UUID,
+    ): ResponseEntity<Book> {
         val returnedBook = bookService.returnBook(bookId)
         return ResponseEntity(returnedBook, HttpStatus.OK)
     }

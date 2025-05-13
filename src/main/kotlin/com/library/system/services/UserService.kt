@@ -7,18 +7,20 @@ import org.springframework.stereotype.Service
 import java.util.UUID
 
 @Service
-class UserService(private val userRepository: UserRepository) {
+class UserService(
+    private val userRepository: UserRepository,
+) {
+    fun registerUser(user: User): User = userRepository.save(user)
 
-    fun registerUser(user: User): User {
-        return userRepository.save(user)
-    }
-
-    fun getUserById(id: UUID): User {
-        return userRepository.findById(id)
+    fun getUserById(id: UUID): User =
+        userRepository
+            .findById(id)
             .orElseThrow { ResourceNotFoundException("User with ID $id not found") }
-    }
 
-    fun updateUser(id: UUID, userDetails: User): User {
+    fun updateUser(
+        id: UUID,
+        userDetails: User,
+    ): User {
         val existingUser = getUserById(id)
 
         // Create a new user object with updated fields but keep the original ID

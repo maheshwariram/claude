@@ -10,14 +10,11 @@ data class User(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id: UUID? = null,
-
     @Column(nullable = false)
     val name: String,
-
     @Column(nullable = false, unique = true)
     val email: String,
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    val role: UserRole = UserRole.MEMBER
+    val role: UserRole = UserRole.MEMBER,
 )

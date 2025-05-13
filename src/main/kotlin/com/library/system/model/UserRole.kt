@@ -1,3 +1,5 @@
 enum class UserRole {
-    MEMBER, LIBRARIAN, ADMIN
+    MEMBER,
+    LIBRARIAN,
+    ADMIN,
 }

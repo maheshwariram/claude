@@ -11,5 +11,6 @@ import java.util.UUID
 @Repository
 interface BorrowingRecordRepository : JpaRepository<BorrowingRecord, UUID> {
     fun findByBookIdAndReturnDateIsNull(bookId: UUID): Optional<BorrowingRecord>
+
     fun countByUserIdAndReturnDateIsNull(userId: UUID): Long
 }
